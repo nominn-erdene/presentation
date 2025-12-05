@@ -1,5 +1,8 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
 import { BarChart3, Info } from 'lucide-react';
+import rocCurvesImage from '../assets/fig-roc-curves.png';
+import prCurvesImage from '../assets/fig-pr-curves.png';
+import distributionsImage from '../assets/fig-distributions.png';
 
 export function VisualizationSection() {
   // Model comparison data - Accuracy, Precision, Recall, F1 (хувиар)
@@ -34,19 +37,32 @@ export function VisualizationSection() {
     { name: 'Шийдвэрийн мод', AUC: 0.7321 }
   ];
 
-  // ROC curve data - X тэнхлэг: 1 - Specificity (False Positive Rate), Y тэнхлэг: Sensitivity (True Positive Rate)
+  // ROC curve data - Тайлан дээрх зөв график ашигласан
+  // X тэнхлэг: 1 - Specificity (False Positive Rate), Y тэнхлэг: Sensitivity (True Positive Rate)
+  // AUC утгууд: Ложистик (0.799), Гэнэн Байес (0.778), Шийдвэрийн мод (0.732)
+  // Ложистик хамгийн дээш, Гэнэн Байес дунд, Шийдвэрийн мод доор
   const rocData = [
-    { fpr: 0.0, logistic: 0.0, naive: 0.0, tree: 0.0 },
-    { fpr: 0.1, logistic: 0.15, naive: 0.18, tree: 0.12 },
-    { fpr: 0.2, logistic: 0.35, naive: 0.38, tree: 0.28 },
-    { fpr: 0.3, logistic: 0.52, naive: 0.55, tree: 0.45 },
-    { fpr: 0.4, logistic: 0.67, naive: 0.68, tree: 0.60 },
-    { fpr: 0.5, logistic: 0.77, naive: 0.78, tree: 0.71 },
-    { fpr: 0.6, logistic: 0.85, naive: 0.85, tree: 0.79 },
-    { fpr: 0.7, logistic: 0.91, naive: 0.90, tree: 0.85 },
-    { fpr: 0.8, logistic: 0.95, naive: 0.94, tree: 0.91 },
-    { fpr: 0.9, logistic: 0.98, naive: 0.97, tree: 0.95 },
-    { fpr: 1.0, logistic: 1.0, naive: 1.0, tree: 1.0 }
+    { fpr: 0.0, logistic: 0.0, naive: 0.0, tree: 0.0, random: 0.0 },
+    { fpr: 0.05, logistic: 0.15, naive: 0.12, tree: 0.08, random: 0.05 },
+    { fpr: 0.1, logistic: 0.30, naive: 0.25, tree: 0.20, random: 0.1 },
+    { fpr: 0.15, logistic: 0.42, naive: 0.38, tree: 0.32, random: 0.15 },
+    { fpr: 0.2, logistic: 0.52, naive: 0.48, tree: 0.42, random: 0.2 },
+    { fpr: 0.25, logistic: 0.60, naive: 0.56, tree: 0.50, random: 0.25 },
+    { fpr: 0.3, logistic: 0.67, naive: 0.63, tree: 0.57, random: 0.3 },
+    { fpr: 0.35, logistic: 0.73, naive: 0.69, tree: 0.63, random: 0.35 },
+    { fpr: 0.4, logistic: 0.78, naive: 0.74, tree: 0.68, random: 0.4 },
+    { fpr: 0.45, logistic: 0.82, naive: 0.78, tree: 0.72, random: 0.45 },
+    { fpr: 0.5, logistic: 0.85, naive: 0.81, tree: 0.76, random: 0.5 },
+    { fpr: 0.55, logistic: 0.88, naive: 0.84, tree: 0.79, random: 0.55 },
+    { fpr: 0.6, logistic: 0.90, naive: 0.86, tree: 0.82, random: 0.6 },
+    { fpr: 0.65, logistic: 0.92, naive: 0.88, tree: 0.84, random: 0.65 },
+    { fpr: 0.7, logistic: 0.93, naive: 0.90, tree: 0.86, random: 0.7 },
+    { fpr: 0.75, logistic: 0.95, naive: 0.92, tree: 0.88, random: 0.75 },
+    { fpr: 0.8, logistic: 0.96, naive: 0.93, tree: 0.90, random: 0.8 },
+    { fpr: 0.85, logistic: 0.97, naive: 0.95, tree: 0.92, random: 0.85 },
+    { fpr: 0.9, logistic: 0.98, naive: 0.96, tree: 0.94, random: 0.9 },
+    { fpr: 0.95, logistic: 0.99, naive: 0.98, tree: 0.96, random: 0.95 },
+    { fpr: 1.0, logistic: 1.0, naive: 1.0, tree: 1.0, random: 1.0 }
   ];
 
   // Risk distribution
@@ -79,18 +95,24 @@ export function VisualizationSection() {
   };
 
   // Precision-Recall curve data
+  // Тайлан дээрх зөв утгууд: Ложистик (AUC=0.924), Гэнэн Байес (AUC=0.792), Шийдвэрийн мод (AUC=0.821)
+  // Precision-Recall curve нь Recall 0.0-1.0, Precision 0.0-1.0 хооронд байх ёстой
+  // Тайлан дээрх график: Ложистик хамгийн дээш (AUC=0.924), Шийдвэрийн мод дунд (0.821), Гэнэн Байес доор (0.792)
+  // Ложистик регресс: Recall 0.0-0.4 орчимд Precision 1.0-д ойр, дараа нь аажмаар буурч Recall 1.0 үед Precision 0.7 орчим
+  // Гэнэн Байес: Recall 0.0-ээс эхлэн Precision 0.2 орчмоос өсөж, Recall 0.4 орчимд Precision 0.8-аас дээш, дараа нь буурч Recall 1.0 үед Precision 0.7 орчим
+  // Шийдвэрийн мод: Recall 0.0-ээс эхлэн Precision 0.6 орчмоос өсөж, Recall 0.1 орчимд Precision 1.0-д хүрч, дараа нь буурч, дахин өсөж, Recall 0.4 орчимд Precision 0.8-аас дээш, дараа нь буурч Recall 1.0 үед Precision 0.7 орчим
   const prData = [
-    { recall: 0.0, logistic: 0.3, naive: 0.3, tree: 0.3 },
-    { recall: 0.1, logistic: 0.35, naive: 0.32, tree: 0.33 },
-    { recall: 0.2, logistic: 0.40, naive: 0.38, tree: 0.36 },
-    { recall: 0.3, logistic: 0.44, naive: 0.42, tree: 0.40 },
-    { recall: 0.4, logistic: 0.48, naive: 0.45, tree: 0.43 },
-    { recall: 0.5, logistic: 0.51, naive: 0.47, tree: 0.46 },
-    { recall: 0.6, logistic: 0.53, naive: 0.48, tree: 0.47 },
-    { recall: 0.7, logistic: 0.54, naive: 0.48, tree: 0.47 },
-    { recall: 0.8, logistic: 0.55, naive: 0.47, tree: 0.47 },
-    { recall: 0.9, logistic: 0.55, naive: 0.47, tree: 0.47 },
-    { recall: 1.0, logistic: 0.55, naive: 0.47, tree: 0.47 }
+    { recall: 0.0, logistic: 1.0, naive: 0.3, tree: 0.6 },
+    { recall: 0.1, logistic: 0.98, naive: 0.35, tree: 1.0 },
+    { recall: 0.2, logistic: 0.92, naive: 0.42, tree: 0.85 },
+    { recall: 0.3, logistic: 0.85, naive: 0.50, tree: 0.78 },
+    { recall: 0.4, logistic: 0.78, naive: 0.58, tree: 0.82 },
+    { recall: 0.5, logistic: 0.72, naive: 0.55, tree: 0.70 },
+    { recall: 0.6, logistic: 0.68, naive: 0.52, tree: 0.65 },
+    { recall: 0.7, logistic: 0.64, naive: 0.50, tree: 0.60 },
+    { recall: 0.8, logistic: 0.60, naive: 0.48, tree: 0.56 },
+    { recall: 0.9, logistic: 0.57, naive: 0.47, tree: 0.53 },
+    { recall: 1.0, logistic: 0.55, naive: 0.47, tree: 0.50 }
   ];
 
   const COLORS = ['#3b82f6', '#ef4444'];
@@ -111,6 +133,29 @@ export function VisualizationSection() {
         </div>
 
         <div className="space-y-8">
+          {/* Data Distribution Histograms */}
+          <div className="bg-white p-8 rounded-2xl shadow-lg">
+            <div className="mb-4">
+              <h3 className="text-2xl text-slate-900 mb-2">Өгөгдлийн тархалтын график</h3>
+              <p className="text-slate-600 text-sm">
+                Зээлийн хэмжээ, хугацаа, нас зэрэг санамсаргүй хувьсагчдын тархалтын гистограммууд
+              </p>
+            </div>
+            <div className="w-full flex justify-center items-center">
+              <img 
+                src={distributionsImage} 
+                alt="Өгөгдлийн тархалтын график - Зээлийн хэмжээ, хугацаа, нас, эрсдэлийн ангилал" 
+                className="max-w-full h-auto rounded-lg shadow-md"
+              />
+            </div>
+            <div className="mt-4 bg-blue-50 p-4 rounded-lg text-sm text-blue-700">
+              <strong>Тайлбар:</strong> Гистограммууд нь өгөгдлийн тархалтын хэлбэрийг харуулж байна. 
+              Зээлийн хэмжээ нь баруун тийшээ хазгай тархалттай, зээлийн хугацаа нь 10-20 сар хооронд төвлөрсөн, 
+              нас нь ойролцоогоор хонх хэлбэрийн тархалттай байна. Бүх хувьсагчдын тархалт хэвийн тархалттай биш 
+              (Shapiro-Wilk test-ийн үр дүнгээр). Эрсдэлийн ангиллын тархалт нь class imbalance-ийг илтгэж байна.
+            </div>
+          </div>
+
           {/* Model Performance Comparison - Accuracy, Precision, Recall, F1 */}
           <div className="bg-white p-8 rounded-2xl shadow-lg">
             <div className="mb-4">
@@ -182,60 +227,13 @@ export function VisualizationSection() {
                 </div>
               </div>
             </div>
-            <ResponsiveContainer width="100%" height={450}>
-              <LineChart data={rocData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis 
-                  dataKey="fpr" 
-                  domain={[0, 1]}
-                  label={{ value: 'False Positive Rate (1 - Specificity)', position: 'insideBottom', offset: -5 }}
-                  ticks={[0, 0.2, 0.4, 0.6, 0.8, 1.0]}
-                />
-                <YAxis 
-                  domain={[0, 1]}
-                  label={{ value: 'True Positive Rate (Sensitivity)', angle: -90, position: 'insideLeft' }}
-                  ticks={[0, 0.2, 0.4, 0.6, 0.8, 1.0]}
-                />
-                <Tooltip 
-                  formatter={(value: number) => value.toFixed(3)}
-                  labelFormatter={(label) => `FPR: ${label.toFixed(2)}`}
-                />
-                <Legend />
-                <Line 
-                  type="monotone" 
-                  dataKey="logistic" 
-                  stroke="#3b82f6" 
-                  strokeWidth={3}
-                  dot={false}
-                  name="Ложистик регресс (AUC=0.7987)"
-                />
-                <Line 
-                  type="monotone" 
-                  dataKey="naive" 
-                  stroke="#22c55e" 
-                  strokeWidth={3}
-                  dot={false}
-                  name="Гэнэн Байес (AUC=0.7784)"
-                />
-                <Line 
-                  type="monotone" 
-                  dataKey="tree" 
-                  stroke="#a855f7" 
-                  strokeWidth={3}
-                  dot={false}
-                  name="Шийдвэрийн мод (AUC=0.7321)"
-                />
-                <Line 
-                  type="linear" 
-                  dataKey="fpr" 
-                  stroke="#94a3b8" 
-                  strokeDasharray="5 5"
-                  strokeWidth={2}
-                  dot={false}
-                  name="Санамсаргүй таамаглал (AUC=0.5)"
-                />
-              </LineChart>
-            </ResponsiveContainer>
+            <div className="w-full flex justify-center items-center">
+              <img 
+                src={rocCurvesImage} 
+                alt="ROC Curve - Загваруудын харьцуулалт" 
+                className="max-w-full h-auto rounded-lg shadow-md"
+              />
+            </div>
           </div>
 
           {/* Precision-Recall Curve */}
@@ -246,46 +244,31 @@ export function VisualizationSection() {
                 Precision болон Recall хоорондын trade-off. Class imbalance-тэй өгөгдөлд AUC-ROC-оос илүү тохиромжтой хэмжүүр.
               </p>
             </div>
-            <ResponsiveContainer width="100%" height={400}>
-              <LineChart data={prData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis 
-                  dataKey="recall" 
-                  domain={[0, 1]}
-                  label={{ value: 'Recall', position: 'insideBottom', offset: -5 }}
-                />
-                <YAxis 
-                  domain={[0.25, 0.6]}
-                  label={{ value: 'Precision', angle: -90, position: 'insideLeft' }}
-                />
-                <Tooltip formatter={(value: number) => value.toFixed(3)} />
-                <Legend />
-                <Line 
-                  type="monotone" 
-                  dataKey="logistic" 
-                  stroke="#3b82f6" 
-                  strokeWidth={3}
-                  dot={false}
-                  name="Ложистик регресс"
-                />
-                <Line 
-                  type="monotone" 
-                  dataKey="naive" 
-                  stroke="#22c55e" 
-                  strokeWidth={3}
-                  dot={false}
-                  name="Гэнэн Байес"
-                />
-                <Line 
-                  type="monotone" 
-                  dataKey="tree" 
-                  stroke="#a855f7" 
-                  strokeWidth={3}
-                  dot={false}
-                  name="Шийдвэрийн мод"
-                />
-              </LineChart>
-            </ResponsiveContainer>
+            <div className="w-full flex justify-center items-center">
+              <img 
+                src={prCurvesImage} 
+                alt="Precision-Recall Curve - Загваруудын харьцуулалт" 
+                className="max-w-full h-auto rounded-lg shadow-md"
+              />
+            </div>
+            <div className="mt-4 grid grid-cols-3 gap-4 text-center">
+              <div className="bg-blue-50 p-3 rounded-lg">
+                <div className="text-sm text-slate-600">Ложистик регресс</div>
+                <div className="text-xl font-bold text-blue-600">AUC = 0.924</div>
+              </div>
+              <div className="bg-green-50 p-3 rounded-lg">
+                <div className="text-sm text-slate-600">Гэнэн Байес</div>
+                <div className="text-xl font-bold text-green-600">AUC = 0.792</div>
+              </div>
+              <div className="bg-purple-50 p-3 rounded-lg">
+                <div className="text-sm text-slate-600">Шийдвэрийн мод</div>
+                <div className="text-xl font-bold text-purple-600">AUC = 0.821</div>
+              </div>
+            </div>
+            <div className="mt-4 bg-slate-50 p-3 rounded-lg text-sm text-slate-600">
+              <strong>Тайлбар:</strong> Precision-Recall AUC нь class imbalance-ийн улмаас ROC AUC-аас өөр байна. 
+              Ложистик регресс нь PR AUC-д хамгийн сайн (0.924), энэ нь class imbalance-тэй өгөгдөлд илүү тохиромжтой хэмжүүр юм.
+            </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">

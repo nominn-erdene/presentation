@@ -84,6 +84,82 @@ export function ConclusionSection() {
           </div>
         </div>
 
+        {/* Recommendations */}
+        <div className="bg-gradient-to-r from-indigo-50 to-indigo-100 p-8 rounded-2xl mb-12">
+          <h3 className="text-2xl text-slate-900 mb-6 flex items-center gap-3">
+            <Lightbulb className="w-7 h-7 text-indigo-600" />
+            Зөвлөмж
+          </h3>
+          <div className="mb-6">
+            <h4 className="text-lg text-slate-900 mb-4 font-semibold">Банк, санхүүгийн байгууллагуудад:</h4>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="bg-white p-5 rounded-xl shadow-sm">
+                <div className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-indigo-500 rounded-full mt-2"></div>
+                  <div>
+                    <h5 className="text-slate-900 mb-2 font-semibold">1. Машин сургалтын загваруудыг нэгтгэх</h5>
+                    <p className="text-slate-700 text-sm">
+                      Ложистик регрессийн загвар нь 74.33% нарийвчлал, 0.7987 AUC-ROC утгатай байгаа тул 
+                      зээл олгох шийдвэр гаргахад ашиглах боломжтой. Гэхдээ тухайн бүс нутаг, цаг хугацааны 
+                      өгөгдөл дээр дахин бэлтгэх шаардлагатай.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-white p-5 rounded-xl shadow-sm">
+                <div className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-indigo-500 rounded-full mt-2"></div>
+                  <div>
+                    <h5 className="text-slate-900 mb-2 font-semibold">2. Хувьсагчдын ач холбогдол</h5>
+                    <p className="text-slate-700 text-sm">
+                      Зээлийн хэмжээ, хугацаа, нас, checking_status, credit_history, purpose зэрэг хувьсагчдын 
+                      эрсдэлтэй статистик ач холбогдолтой холбоо байгаа тул эдгээрийг зээлийн үнэлгээний 
+                      системд чухал үзүүлэлт болгон ашиглах нь зөв.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-white p-5 rounded-xl shadow-sm">
+                <div className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-indigo-500 rounded-full mt-2"></div>
+                  <div>
+                    <h5 className="text-slate-900 mb-2 font-semibold">3. Загваруудыг тогтмол шинэчлэх</h5>
+                    <p className="text-slate-700 text-sm">
+                      Өгөгдөл, эдийн засгийн нөхцөл байдал өөрчлөгдөх тусам загваруудыг дахин бэлтгэж, 
+                      шинэчлэх шаардлагатай. Энэ нь загваруудын нарийвчлалыг хадгалахад тусална.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-white p-5 rounded-xl shadow-sm">
+                <div className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-indigo-500 rounded-full mt-2"></div>
+                  <div>
+                    <h5 className="text-slate-900 mb-2 font-semibold">4. Олон загварын хослол</h5>
+                    <p className="text-slate-700 text-sm">
+                      Ложистик регресс нь илүү сайн Precision үзүүлсэн бөгөөд Гэнэн Байес нь илүү сайн 
+                      Recall үзүүлсэн тул хоёр загварыг хослуулан ашиглах нь илүү сайн үр дүн өгөх боломжтой.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-white p-5 rounded-xl shadow-sm md:col-span-2">
+                <div className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-indigo-500 rounded-full mt-2"></div>
+                  <div>
+                    <h5 className="text-slate-900 mb-2 font-semibold">5. Class imbalance-ийн асуудлыг шийдэх</h5>
+                    <p className="text-slate-700 text-sm">
+                      Dataset дээр эрсдэлтэй зээлийн хувь 30% байгаа тул class imbalance-ийн асуудлыг шийдэхийн 
+                      тулд SMOTE, class weights зэрэг аргуудыг ашиглах нь зөв. Энэ нь загваруудын гүйцэтгэлийг 
+                      сайжруулах боломжтой.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Practical Applications */}
         <div className="bg-gradient-to-r from-green-50 to-green-100 p-8 rounded-2xl mb-12">
           <h3 className="text-2xl text-slate-900 mb-6 flex items-center gap-3">

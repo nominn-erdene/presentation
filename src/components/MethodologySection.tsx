@@ -247,6 +247,38 @@ export function MethodologySection() {
                   </div>
                 </div>
               </div>
+              
+              {/* Модны дэлгэрэнгүй мэдээлэл */}
+              <div className="mt-6 bg-slate-50 p-6 rounded-xl">
+                <h4 className="text-lg text-slate-900 mb-4">Модны гүйцэтгэл</h4>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="bg-white p-4 rounded-lg">
+                    <div className="text-sm text-slate-600 mb-1">Training accuracy</div>
+                    <div className="text-2xl text-purple-600 font-semibold">83.43%</div>
+                    <p className="text-xs text-slate-500 mt-1">Training set дээрх нарийвчлал</p>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg">
+                    <div className="text-sm text-slate-600 mb-1">Test accuracy</div>
+                    <div className="text-2xl text-purple-600 font-semibold">67.00%</div>
+                    <p className="text-xs text-slate-500 mt-1">Test set дээрх нарийвчлал</p>
+                  </div>
+                </div>
+                <div className="mt-4 bg-yellow-50 p-3 rounded-lg border border-yellow-200">
+                  <p className="text-sm text-yellow-800">
+                    <strong>Overfitting:</strong> Training accuracy (83.43%) &gt; Test accuracy (67%) нь модны overfitting-ийг илтгэнэ. 
+                    Гэхдээ энэ нь хэвийн үзэгдэл бөгөөд мод нь training data-д сайн таамаглах чадвартай.
+                  </p>
+                </div>
+                <div className="mt-4 bg-white p-4 rounded-lg">
+                  <h5 className="text-sm font-semibold text-slate-900 mb-2">Модны гол хуваалтууд:</h5>
+                  <ul className="space-y-1 text-xs text-slate-700">
+                    <li>• Root: checking_status (A13,A14 vs A11,A12)</li>
+                    <li>• Level 2: purpose, duration, credit_history</li>
+                    <li>• Level 3: age, credit_amount, employment</li>
+                    <li>• Level 4: savings_status, property_magnitude</li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </div>

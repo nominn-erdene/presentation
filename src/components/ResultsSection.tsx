@@ -1,3 +1,4 @@
+import React from 'react';
 import { Trophy, TrendingUp, Award, Target } from 'lucide-react';
 
 export function ResultsSection() {
@@ -104,7 +105,7 @@ export function ResultsSection() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-4">
                 <div className="bg-white p-4 rounded-xl shadow-sm">
                   <div className="text-sm text-slate-600 mb-1">AUC-ROC</div>
                   <div className="text-xl text-slate-900">{model.auc.toFixed(4)}</div>
@@ -125,6 +126,24 @@ export function ResultsSection() {
                   <div className="text-sm text-slate-600 mb-1">McFadden R²</div>
                   <div className="text-xl text-slate-900">{model.mcfadden ? model.mcfadden.toFixed(4) : 'N/A'}</div>
                 </div>
+              </div>
+              
+              {/* Optimal threshold утга */}
+              <div className="bg-slate-50 p-3 rounded-lg">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-slate-600">Optimal threshold (Youden's J):</span>
+                  <span className="text-slate-900 font-semibold">
+                    {model.name === 'Ложистик регресс' && '0.267'}
+                    {model.name === 'Гэнэн Байес' && '0.1359'}
+                    {model.name === 'Шийдвэрийн мод' && '0.1576'}
+                  </span>
+                </div>
+                {model.name === 'Шийдвэрийн мод' && (
+                  <div className="flex items-center justify-between text-sm mt-2 pt-2 border-t border-slate-200">
+                    <span className="text-slate-600">Training accuracy:</span>
+                    <span className="text-slate-900 font-semibold">83.43%</span>
+                  </div>
+                )}
               </div>
             </div>
           ))}
@@ -250,6 +269,117 @@ export function ResultsSection() {
                 <div className="text-xl text-slate-900">128</div>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Prediction Examples */}
+        <div className="mt-12 bg-gradient-to-r from-indigo-50 to-purple-50 p-8 rounded-2xl">
+          <h3 className="text-2xl text-slate-900 mb-6">Зээлийн эрсдэлийн прогноз жишээ</h3>
+          <p className="text-slate-600 mb-6">
+            Бэлтгэсэн загваруудыг ашиглан шинэ зээлдэгчдийн эрсдэлийг таамаглах жишээ
+          </p>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse bg-white rounded-xl shadow-sm">
+              <thead>
+                <tr className="bg-slate-100">
+                  <th className="border border-slate-300 px-4 py-3 text-left text-slate-900 font-semibold">Зээлийн хэмжээ</th>
+                  <th className="border border-slate-300 px-4 py-3 text-left text-slate-900 font-semibold">Хугацаа (сар)</th>
+                  <th className="border border-slate-300 px-4 py-3 text-left text-slate-900 font-semibold">Нас</th>
+                  <th className="border border-slate-300 px-4 py-3 text-center text-slate-900 font-semibold">Ложистик регресс</th>
+                  <th className="border border-slate-300 px-4 py-3 text-center text-slate-900 font-semibold">Гэнэн Байес</th>
+                  <th className="border border-slate-300 px-4 py-3 text-center text-slate-900 font-semibold">Шийдвэрийн мод</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="hover:bg-slate-50">
+                  <td className="border border-slate-300 px-4 py-3 text-slate-700">5,000</td>
+                  <td className="border border-slate-300 px-4 py-3 text-slate-700">24</td>
+                  <td className="border border-slate-300 px-4 py-3 text-slate-700">25</td>
+                  <td className="border border-slate-300 px-4 py-3 text-center">
+                    <span className="px-3 py-1 rounded-full text-sm bg-green-100 text-green-700">Эрсдэлгүй (18.4%)</span>
+                  </td>
+                  <td className="border border-slate-300 px-4 py-3 text-center">
+                    <span className="px-3 py-1 rounded-full text-sm bg-green-100 text-green-700">Эрсдэлгүй</span>
+                  </td>
+                  <td className="border border-slate-300 px-4 py-3 text-center">
+                    <span className="px-3 py-1 rounded-full text-sm bg-green-100 text-green-700">Эрсдэлгүй</span>
+                  </td>
+                </tr>
+                <tr className="hover:bg-slate-50">
+                  <td className="border border-slate-300 px-4 py-3 text-slate-700">15,000</td>
+                  <td className="border border-slate-300 px-4 py-3 text-slate-700">48</td>
+                  <td className="border border-slate-300 px-4 py-3 text-slate-700">45</td>
+                  <td className="border border-slate-300 px-4 py-3 text-center">
+                    <span className="px-3 py-1 rounded-full text-sm bg-red-100 text-red-700">Эрсдэлтэй (63.9%)</span>
+                  </td>
+                  <td className="border border-slate-300 px-4 py-3 text-center">
+                    <span className="px-3 py-1 rounded-full text-sm bg-red-100 text-red-700">Эрсдэлтэй</span>
+                  </td>
+                  <td className="border border-slate-300 px-4 py-3 text-center">
+                    <span className="px-3 py-1 rounded-full text-sm bg-red-100 text-red-700">Эрсдэлтэй</span>
+                  </td>
+                </tr>
+                <tr className="hover:bg-slate-50">
+                  <td className="border border-slate-300 px-4 py-3 text-slate-700">3,000</td>
+                  <td className="border border-slate-300 px-4 py-3 text-slate-700">12</td>
+                  <td className="border border-slate-300 px-4 py-3 text-slate-700">30</td>
+                  <td className="border border-slate-300 px-4 py-3 text-center">
+                    <span className="px-3 py-1 rounded-full text-sm bg-green-100 text-green-700">Эрсдэлгүй (9.5%)</span>
+                  </td>
+                  <td className="border border-slate-300 px-4 py-3 text-center">
+                    <span className="px-3 py-1 rounded-full text-sm bg-green-100 text-green-700">Эрсдэлгүй</span>
+                  </td>
+                  <td className="border border-slate-300 px-4 py-3 text-center">
+                    <span className="px-3 py-1 rounded-full text-sm bg-green-100 text-green-700">Эрсдэлгүй</span>
+                  </td>
+                </tr>
+                <tr className="hover:bg-slate-50">
+                  <td className="border border-slate-300 px-4 py-3 text-slate-700">20,000</td>
+                  <td className="border border-slate-300 px-4 py-3 text-slate-700">60</td>
+                  <td className="border border-slate-300 px-4 py-3 text-slate-700">55</td>
+                  <td className="border border-slate-300 px-4 py-3 text-center">
+                    <span className="px-3 py-1 rounded-full text-sm bg-red-100 text-red-700">Эрсдэлтэй (82.9%)</span>
+                  </td>
+                  <td className="border border-slate-300 px-4 py-3 text-center">
+                    <span className="px-3 py-1 rounded-full text-sm bg-red-100 text-red-700">Эрсдэлтэй</span>
+                  </td>
+                  <td className="border border-slate-300 px-4 py-3 text-center">
+                    <span className="px-3 py-1 rounded-full text-sm bg-red-100 text-red-700">Эрсдэлтэй</span>
+                  </td>
+                </tr>
+                <tr className="hover:bg-slate-50">
+                  <td className="border border-slate-300 px-4 py-3 text-slate-700">8,000</td>
+                  <td className="border border-slate-300 px-4 py-3 text-slate-700">36</td>
+                  <td className="border border-slate-300 px-4 py-3 text-slate-700">40</td>
+                  <td className="border border-slate-300 px-4 py-3 text-center">
+                    <span className="px-3 py-1 rounded-full text-sm bg-red-100 text-red-700">Эрсдэлтэй (33.1%)</span>
+                  </td>
+                  <td className="border border-slate-300 px-4 py-3 text-center">
+                    <span className="px-3 py-1 rounded-full text-sm bg-green-100 text-green-700">Эрсдэлгүй</span>
+                  </td>
+                  <td className="border border-slate-300 px-4 py-3 text-center">
+                    <span className="px-3 py-1 rounded-full text-sm bg-green-100 text-green-700">Эрсдэлгүй</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="mt-6 bg-white p-6 rounded-xl shadow-sm">
+            <h4 className="text-lg text-slate-900 mb-3">Дүгнэлт</h4>
+            <ul className="space-y-2 text-slate-700 text-sm">
+              <li className="flex items-start gap-2">
+                <span className="text-blue-500 mt-1">•</span>
+                <span>Их хэмжээний (15,000+), урт хугацаатай (48+ сар) зээл эрсдэлтэй байх магадлал их</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-green-500 mt-1">•</span>
+                <span>Бага хэмжээний (3,000-5,000), богино хугацаатай (12-24 сар) зээл эрсдэлгүй байх магадлал их</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-yellow-500 mt-1">•</span>
+                <span>Дунд зэрэг зээлд (8,000, 36 сар) загварууд өөр өөр үр дүн өгч байна - илүү нарийвчилсан шинжилгээ шаардлагатай</span>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
