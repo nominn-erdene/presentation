@@ -1,4 +1,5 @@
 import { Database, BarChart2, TrendingUp } from 'lucide-react';
+import { renderMathInText } from './Math';
 
 export function DataSection() {
   return (
@@ -159,7 +160,7 @@ export function DataSection() {
           <div className="bg-white p-6 rounded-xl shadow-sm mb-6">
             <h4 className="text-lg text-slate-900 mb-4 font-semibold">Хэвийн тархалтын шалгалт (Shapiro-Wilk Test)</h4>
             <p className="text-slate-600 mb-4 text-sm">
-              Өгөгдөл хэвийн тархалттай эсэхийг шалгах. $H_0$: Өгөгдөл хэвийн тархалттай, $H_1$: Өгөгдөл хэвийн тархалттай биш.
+              {renderMathInText('Өгөгдөл хэвийн тархалттай эсэхийг шалгах. $H_0$: Өгөгдөл хэвийн тархалттай, $H_1$: Өгөгдөл хэвийн тархалттай биш.')}
             </p>
             <div className="overflow-x-auto">
               <table className="w-full border-collapse text-sm">
@@ -194,7 +195,7 @@ export function DataSection() {
               </table>
             </div>
             <p className="text-xs text-slate-500 mt-3">
-              <strong>Тайлбар:</strong> Бүх хувьсагчдын p-value &lt; 0.05 тул $H_0$ таамаглалыг татгалзаж, өгөгдөл хэвийн тархалттай биш гэж дүгнэнэ. 
+              <strong>Тайлбар:</strong> {renderMathInText('Бүх хувьсагчдын p-value < 0.05 тул $H_0$ таамаглалыг татгалзаж, өгөгдөл хэвийн тархалттай биш гэж дүгнэнэ.')} 
               Тиймээс Spearman корреляцийн коэффициент ашигласан.
             </p>
           </div>
@@ -203,7 +204,7 @@ export function DataSection() {
           <div className="bg-white p-6 rounded-xl shadow-sm">
             <h4 className="text-lg text-slate-900 mb-4 font-semibold">Параметрийн тухай таамаглал шалгах (Z-test)</h4>
             <p className="text-slate-600 mb-4 text-sm">
-              Эрсдэлтэй зээлийн хувь 30% байна гэсэн таамаглал шалгах. $H_0$: $p = 0.30$, $H_1$: $p \neq 0.30$.
+              {renderMathInText('Эрсдэлтэй зээлийн хувь 30% байна гэсэн таамаглал шалгах. $H_0$: $p = 0.30$, $H_1$: $p \\neq 0.30$.')}
             </p>
             <div className="bg-slate-50 p-4 rounded-lg space-y-2">
               <div className="flex justify-between items-center">
@@ -211,7 +212,7 @@ export function DataSection() {
                 <span className="text-slate-900 font-semibold">30.00%</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-slate-700">Таамагласан хувь ($p_0$):</span>
+                <span className="text-slate-700">{renderMathInText('Таамагласан хувь ($p_0$):')}</span>
                 <span className="text-slate-900 font-semibold">30%</span>
               </div>
               <div className="flex justify-between items-center">
@@ -224,7 +225,7 @@ export function DataSection() {
               </div>
               <div className="flex justify-between items-center pt-2 border-t border-slate-300">
                 <span className="text-slate-700 font-semibold">Дүгнэлт:</span>
-                <span className="text-green-600 font-semibold">$H_0$ таамаглалыг хүлээн зөвшөөрнө</span>
+                <span className="text-green-600 font-semibold">{renderMathInText('$H_0$ таамаглалыг хүлээн зөвшөөрнө')}</span>
               </div>
             </div>
             <p className="text-xs text-slate-500 mt-3">
